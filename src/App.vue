@@ -3,16 +3,16 @@
     <img src="./assets/logo.png">
     <ul>
       <li class="item">
-        <router-link to="/com1">com1</router-link>
+        <router-link to="/one">one</router-link>
       </li>
       <li class="item">
-        <router-link to="/com2">com2</router-link>
+        <router-link to="/two">two</router-link>
       </li>
       <li class="item">
-        <router-link to="/com3">com3</router-link>
+        <router-link to="/three">three</router-link>
       </li>
     </ul>
-    <router-view></router-view>
+    <router-view :style="{color:'orange'}"></router-view>
     <Btn></Btn>
     <div>
       {{show}}

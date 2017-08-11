@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 // import Hello from '@/components/Hello'
-import Com1 from "../components/com1.vue"
-import Com2 from "../components/com2.vue"
-import Com3 from "../components/com3.vue"
+import One from "../components/one.vue"
+import Two from "../components/two.vue"
+import Three from "../components/three.vue"
 
 Vue.use(Router)
 
@@ -12,23 +12,23 @@ export default new Router({
   routes: [    
     {
       path: '/',
-      name: 'com1',
-      component: Com1
+      name: 'one',
+      component: One
     },
     {
-      path: '/com1',
-      name: 'com1',
-      component: Com1
+      path: '/one',
+      name: 'one',
+      component: One
     },
     {
-      path: '/com2',
-      name: 'com2',
-      component: Com2
+      path: '/two',
+      name: 'two',
+      component: Two
     },
     {
-      path: '/com3',
-      name: 'com3',
-      component: Com3
+      path: '/three',
+      name: 'three',
+      component: Three
     }
   ]
 })
