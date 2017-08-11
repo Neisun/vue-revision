@@ -11,6 +11,9 @@ const state = {
 const mutations = {
     add:function (state) {
         state.num++;
+    },
+    minus:function (state) {
+        state.num--;
     }
 }
 

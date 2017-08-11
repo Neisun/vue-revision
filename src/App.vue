@@ -14,8 +14,9 @@
     </ul>
     <router-view :style="{color:'orange'}"></router-view>
     <Btn></Btn>
+    <button @click="commit">点我减1</button>
     <div>
-      {{show}}
+      {{myNum}}
     </div>
     <div>
       <h2>渲染出来的数据</h2>
@@ -79,8 +80,11 @@
         <input type="text" v-model="question">
       </p>
       <p style="height:20px;">{{answer}}</p>
+      <img :src="imgUrl" alt="">
     </div>
     <div>
+      <h2>引入外部js测试</h2>
+      <button type="button" @click="test">测试</button>
     </div>
   </div>
 </template>
@@ -89,6 +93,9 @@
 import Btn from "./components/vuex.vue"
 import Child from "./components/child.vue"
 import { mapGetters } from "vuex"
+import {mapState} from "vuex"
+import store from "./store/index"
+import util from "./util/index"
 export default {
   name: 'app',
   data: function () {
@@ -109,9 +116,10 @@ export default {
       value: "david",
       firstName: "John",
       lastName: "Wick",
-      // fullName:"John Wick",
+      // 计算属性案例部分
       question: "",
-      answer: ""
+      answer: "",
+      imgUrl: ""
     }
   },
   components: {
@@ -119,9 +127,12 @@ export default {
     Child
   },
   computed: {
-    ...mapGetters([
-      "show"
-    ]),
+    // ...mapGetters([
+    //   "show"
+    // ]),
+    ...mapState({
+        myNum:'num'
+    }),
     fullName: {
       get: function (params) {
         return this.firstName + " " + this.lastName;
@@ -140,28 +151,38 @@ export default {
     submit: function () {
       alert("提交了！")
     },
-    getAnswer: //this.$lodash.debounce(
-      function () {
-        if (this.question.indexOf("?")==="-1") {
-          this.answer = "问题需要带“?”号！"
+    getAnswer:function () {
+      var self = this;
+      setTimeout(function () {
+        if (self.question.indexOf("?") === -1) {
+          self.answer = "问题需要带“?”号！"
+          return
         }
-        var _this = this;
-        this.$http.get("https://yesno.wtf/ap")
-        .then(function (res) {
-          console.log(res)
-        })
-        .catch(function (err) {
-          console.log(err)
-        })
-      }
-      //, 500)
+        self.$http.get("https://yesno.wtf/api")
+          .then(function (res) {
+            console.log(res)
+            self.answer = res.data.answer;
+            self.imgUrl = res.data.image;
+          })
+          .catch(function (err) {
+            console.log(err)
+          })
+
+      }, 1000)
+    },
+    test:function () {
+      util.myTest();
+    },
+    commit:function () {
+      store.commit("minus")
+    }
   },
   // 这里，你就没有必要耍帅装酷，用可读性极差的箭头函数，因为watch它设定好了，绑定上下文的作用域
   watch: {
     inp: function (newValue, oldValue) {
       console.log(oldValue + "go," + newValue + "come");
     },
-    question: function () {
+    question: function (newQuestion) {
       this.answer = "等待您停止输入。。。";
       this.getAnswer()
     }
@@ -194,7 +215,7 @@ export default {
   },
   created: function () {
     console.log("create");
-    console.log("Time is"+this.$moment().format())
+    console.log("Time is" + this.$moment().format())
   },
   beforeMount: function () {
     console.log("beforeMount")
