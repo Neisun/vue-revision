@@ -15,57 +15,57 @@
     <router-view :style="{color:'orange'}"></router-view>
     <Btn></Btn>
     <button @click="commit">点我减1</button>
-    <div>
+    <div :style="{'border':'1px solid #ccc'}">
       {{myNum}}
     </div>
-    <div>
+    <div :style="{'border':'1px solid #ccc'}">
       <h2>渲染出来的数据</h2>
       {{msg}}
     </div>
-    <ul>
+    <ul :style="{'border':'1px solid #ccc'}">
       <h2>遍历来的数据</h2>
       <li v-for="(item,index) in lists" :key="item.id" :class="'list'+item.id">
         {{item.name}}
       </li>
     </ul>
-    <div>
+    <div :style="{'border':'1px solid #ccc'}">
       <h2>条件循环</h2>
       <p v-if="seen">can you see me?</p>
     </div>
-    <div>
+    <div :style="{'border':'1px solid #ccc'}">
       <h2>事件监听v-on</h2>
       <p>{{msg}}</p>
       <button @click="reverse">点击翻转</button>
     </div>
-    <div>
+    <div :style="{'border':'1px solid #ccc'}">
       <h2>数据绑定</h2>
       <input type="text" v-model="inp">
       <p>{{inp}}</p>
     </div>
-    <div>
+    <div :style="{'border':'1px solid #ccc'}">
       <h2>父子组件数据传递，父传子</h2>
       <!--容易产生误会的地方，在这里做一个记录  -->
       <!--首先，在组件中我绑定是childData，现在我想从父组件 中拿来数据进行对子组件的数据进行渲染，首先我要知道，我想渲染的是什么数据。我想渲染的是lists这个数组中的每一项的name  -->
       <!--首先，循环遍历这个数组，然后把每一项的item绑定给childData，还需要记住的是，给每一个组件绑定一个key  -->
       <Child v-for="item in lists" :childData="item" :key="item.id"></Child>
     </div>
-    <div>
+    <div :style="{'border':'1px solid #ccc'}">
       <h2>原始html</h2>
       <div v-html="rawHTML"></div>
     </div>
-    <div>
+    <div :style="{'border':'1px solid #ccc'}">
       <a :href="url" target="_blank">链接</a>
       <input type="text" v-model="url">
     </div>
-    <div>
+    <div :style="{'border':'1px solid #ccc'}">
       <h2>按键修饰符</h2>
       <button @keyup.enter="submit" @click="submit">提交</button>
     </div>
-    <div>
+    <div :style="{'border':'1px solid #ccc'}">
       <h2>过滤器</h2>
       <p>{{value | capitalize |filterA}}</p>
     </div>
-    <div>
+    <div :style="{'border':'1px solid #ccc'}">
       <h2>计算属性</h2>
       <ul>
         <li>姓：{{firstName}}</li>
@@ -73,7 +73,7 @@
         <li>姓名：{{fullName}}</li>
       </ul>
     </div>
-    <div>
+    <div :style="{'border':'1px solid #ccc'}">
       <h2>watch的一个简单的案例</h2>
       <p>
         写一个 yes/no 的问题：
@@ -82,9 +82,72 @@
       <p style="height:20px;">{{answer}}</p>
       <img :src="imgUrl" alt="">
     </div>
-    <div>
+    <div :style="{'border':'1px solid #ccc'}">
       <h2>引入外部js测试</h2>
       <button type="button" @click="test">测试</button>
+    </div>
+    <div :style="{'border':'1px solid #ccc'}">
+      <h2>class与style的绑定</h2>
+      <div :style="{'border':'1px solid #ccc'}">
+        <h3>一、class的绑定，:class=""</h3>
+        <h4>第一种：直接绑定类名:class="{'class1':true/false,'class2':true/false}",true/false可以用变量替代</h4>
+        <div class="div" :class="{'ok':flag,'error':!flag}"></div>
+        <div>
+          <button type="button" @click="changeClass">动态切换ok-error类名</button>
+        </div>
+        <h4>第二种：直接绑定一个对象:class="classObject"</h4>
+        <div class="div" :class="classObject1"></div>
+        <h4>第二种：直接绑定一个对象，但是通过计算属性来做判断，这是非常棒的方式，在项目中会经常用的到的</h4>
+        <div class="div" :class="classObject2"></div>
+        <h4>第三种：数组的形式:class="[classA,classB]",classA与classB都是data中的数据，所以不是字符串的书写形式，并且在data中分别对应一个写好的类名</h4>
+        <div class="div" :class="[classA,classB]"></div>
+        <h4>第四种：数组中包含对象，一般添加类名较多的时候，并且有条件判断</h4>
+        <div :class="[{'ok':flag},classC]"></div>
+        <h5>上边的几种方式需要灵活运用，没有什么是死的。</h5>
+      </div>
+      <div :style="{'border':'1px solid #ccc'}">
+        <h3>二、style的绑定:style=".."</h3>
+        <h4>第一种，直接绑定属性和属性值,:style="{'attr1':'value1','attr2','value2'}"</h4>
+        <div :style="{'width':'200px','height':'200px','border':'1px solid #ccc','margin-left':marginLeft+'px'}"></div>
+        <!--这种方式一般用来动态改变一些属性值，比如轮播图之类的，直接这么定义绑定，显得麻烦，还很撒比  -->
+        <div>
+          <button type="button" @click="moveRight">点我让上方的div右移，每次10px</button>
+        </div>
+        <h4>第二种：直接绑定一个对象 :style="styleObj"</h4>
+        <div :style="styleObj1"></div>
+        <h4>第二种，直接绑定一个对象，但是是通过计算属性获得</h4>
+        <div :style="styleObj2"></div>
+        <h4>第三种：数组的方式:style="[styleObj1,styleObj2]",在数组中直接书写定义好的对象</h4>
+        <div :style="[styleObj3,styleObj4]"></div>
+      </div>
+    </div>
+    <div :style="{'border':'1px solid #ccc'}">
+      <h2>条件判断：v-if,v-else,v-else-if,基本用法不演示。为了作用于一组标签，我们一般把这些标签放在template中</h2>
+      <div>
+        <template v-if="bover">
+          <label for="">username</label>
+          <input type="text">
+        </template>
+        <template v-else>
+          <label for="">Email</label>
+          <input type="text">
+        </template>
+        <button type="button" @click="toggle">toggle</button>
+      </div>
+      <div>
+        这块明显会存在问题，就是切换的时候，input的内容没有改变
+      </div>
+      <div>
+        <template v-if="loginType==='username'">
+          <label for="">username</label>
+          <input type="text" key="username">
+        </template>
+        <template v-else>
+          <label for="">Email</label>
+          <input type="text" key="email">
+        </template>
+        <button type="button" @click="toggleType">toggle</button>
+      </div>
     </div>
   </div>
 </template>
@@ -93,7 +156,7 @@
 import Btn from "./components/vuex.vue"
 import Child from "./components/child.vue"
 import { mapGetters } from "vuex"
-import {mapState} from "vuex"
+import { mapState } from "vuex"
 import store from "./store/index"
 import util from "./util/index"
 export default {
@@ -119,7 +182,28 @@ export default {
       // 计算属性案例部分
       question: "",
       answer: "",
-      imgUrl: ""
+      imgUrl: "",
+      // class与style绑定部分
+      flag: true,
+      classObject1: {
+        ok: true,
+        error: false
+      },
+      classA: "ok",
+      classB: "error",
+      classC: "div",
+      marginLeft: 0,
+      styleObj1: {
+        "width": "200px",
+        "height": "200px",
+        "border": "1px solid #ccc"
+      },
+      styleObj3: {
+        "width": "200px",
+        "height": "200px"
+      },
+      bover: true,
+      loginType: "username"
     }
   },
   components: {
@@ -131,7 +215,7 @@ export default {
     //   "show"
     // ]),
     ...mapState({
-        myNum:'num'
+      myNum: 'num'
     }),
     fullName: {
       get: function (params) {
@@ -142,6 +226,24 @@ export default {
         this.firstName = names[0];
         this.lastName = names[1];
       }
+    },
+    classObject2: function () {
+      return {
+        ok: this.flag,
+        error: !this.flag
+      }
+    },
+    styleObj2: function () {
+      return {
+        "width": "200px",
+        "height": "200px",
+        "border": "1px solid #ccc"
+      }
+    },
+    styleObj4: function () {
+      return {
+        "border": "1px solid #ccc"
+      }
     }
   },
   methods: {
@@ -151,7 +253,7 @@ export default {
     submit: function () {
       alert("提交了！")
     },
-    getAnswer:function () {
+    getAnswer: function () {
       var self = this;
       setTimeout(function () {
         if (self.question.indexOf("?") === -1) {
@@ -170,11 +272,28 @@ export default {
 
       }, 1000)
     },
-    test:function () {
+    test: function () {
       util.myTest();
     },
-    commit:function () {
+    commit: function () {
       store.commit("minus")
+    },
+    changeClass: function () {
+      this.flag = !this.flag;
+    },
+    moveRight: function () {
+      this.marginLeft += 10;
+    },
+    toggle: function () {
+      this.bover = !this.bover
+    },
+    toggleType: function () {
+      if (this.loginType === 'username') {
+        this.loginType = 'email'
+      }
+      else {
+        this.loginType = "username"
+      }
     }
   },
   // 这里，你就没有必要耍帅装酷，用可读性极差的箭头函数，因为watch它设定好了，绑定上下文的作用域
@@ -268,6 +387,20 @@ export default {
 }
 
 .active {
+  background: red;
+}
+
+.div {
+  width: 200px;
+  height: 200px;
+  border: 1px solid #ccc;
+}
+
+.ok {
+  background: lightgreen;
+}
+
+.error {
   background: red;
 }
 </style>
