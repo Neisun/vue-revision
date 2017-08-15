@@ -149,7 +149,6 @@
         <button type="button" @click="toggleType">toggle</button>
       </div>
     </div>
-    div
   </div>
 </template>
 

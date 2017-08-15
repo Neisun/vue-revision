@@ -4,10 +4,14 @@
     </div>
 </template>
 <script>
-    export default{
-        name:"one",
-        
+export default {
+    name: "one",
+    data: function () {
+        return {
+
+        }
     }
+}
 </script>
 <style>
 
