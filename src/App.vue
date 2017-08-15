@@ -149,27 +149,78 @@
         <button type="button" @click="toggleType">toggle</button>
       </div>
     </div>
+    <div :style="{'border':'1px solid #ccc'}">
+      <h2>关于v-for，循环遍历，基础语法不多做解释</h2>
+      <div :style="{'border':'1px solid #ccc'}">
+        <h3>v-for在对象中的使用:v-for="(value,key,index) in obj",注意顺序,value,key,index</h3>
+        <ul>
+          <li v-for="(value,key,index) in obj">
+            {{value}}-{{key}}--{{index}}
+          </li>
+        </ul>
+      </div>
+      <div :style="{'border':'1px solid #ccc'}">
+        <h3>与template联用</h3>
+        <template v-for="(n,index) in 3">
+          <button :key="index">{{n}}--按钮</button>
+        </template>
+      </div>
+      <div :style="style">
+        <h3>官网的一个案例</h3>
+        <div>
+          <input type="text" v-model="thing" @keyup.enter="addNewThing">
+          <ul>
+            <Todo v-for="(item,index) in things" :key="item.id" :title="item.title" @del="dele(index)"></Todo>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+// vuex定义的按钮组件
 import Btn from "./components/vuex.vue"
+// 父子组件传递数据用的子组件
 import Child from "./components/child.vue"
-import { mapGetters } from "vuex"
-import { mapState } from "vuex"
+// vuex中的mapGetters
+import {
+  mapGetters
+} from "vuex"
+import {
+  mapState
+} from "vuex"
 import store from "./store/index"
 import util from "./util/index"
+import Todo from "./components/todo.vue"
 export default {
   name: 'app',
   data: function () {
     return {
+      style:{
+        "border":"1px solid #ccc"
+      },
       msg: "渲染出来的数据",
-      lists: [
-        { name: "钢琴", id: 1 },
-        { name: "小提琴", id: 2 },
-        { name: "大提琴", id: 3 },
-        { name: "马头琴", id: 4 },
-        { name: "胡琴", id: 5 },
+      lists: [{
+        name: "钢琴",
+        id: 1
+      },
+      {
+        name: "小提琴",
+        id: 2
+      },
+      {
+        name: "大提琴",
+        id: 3
+      },
+      {
+        name: "马头琴",
+        id: 4
+      },
+      {
+        name: "胡琴",
+        id: 5
+      },
       ],
       seen: false,
       inp: "哈哈哈",
@@ -202,13 +253,42 @@ export default {
         "width": "200px",
         "height": "200px"
       },
+      // v-if相关部分数据
       bover: true,
-      loginType: "username"
+      loginType: "username",
+      // v-for相关部分数据
+      obj: {
+        name: "大卫·贝克汉姆",
+        job: "足球运动员",
+        age: 40,
+        wife: "维多利亚"
+      },
+      thing:"",
+      things:[
+        {
+          title:"写博客",
+          id:1
+        },
+        {
+          title:"改代码",
+          id:2
+        },
+        {
+          title:"打台球",
+          id:3
+        },
+        {
+          title:"睡觉",
+          id:4
+        },
+      ],
+      thingsId:5,
     }
   },
   components: {
     Btn,
-    Child
+    Child,
+    Todo
   },
   computed: {
     // ...mapGetters([
@@ -290,10 +370,20 @@ export default {
     toggleType: function () {
       if (this.loginType === 'username') {
         this.loginType = 'email'
-      }
-      else {
+      } else {
         this.loginType = "username"
       }
+    },
+    addNewThing:function () {
+      this.thingsId++;
+      this.things.push({
+        title:this.thing,
+        id:this.thingsId
+      })
+      this.thing = ""
+    },
+    dele:function (index) {
+      this.things.splice(index,1)
     }
   },
   // 这里，你就没有必要耍帅装酷，用可读性极差的箭头函数，因为watch它设定好了，绑定上下文的作用域
@@ -311,8 +401,7 @@ export default {
     capitalize: function (value) {
       if (value == "") {
         return ""
-      }
-      else {
+      } else {
         value = value.toString();
         value = value.charAt(0).toUpperCase() + value.slice(1);
         return value;
@@ -361,6 +450,7 @@ export default {
     console.log("destroyed")
   }
 }
+
 </script>
 
 <style>
