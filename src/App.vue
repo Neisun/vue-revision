@@ -169,8 +169,12 @@
         <h3>官网的一个案例</h3>
         <div>
           <input type="text" v-model="thing" @keyup.enter="addNewThing">
+          <!--此处，直接用了组件替代li了，如果不想替代，那么就使用li  -->
+          <!--但是有一个问题不得不提，常规的写法是这样，应该是遍历li，然后让在li属性中添加is属性等于组件 -->
           <ul>
-            <Todo v-for="(item,index) in things" :key="item.id" :title="item.title" @del="dele(index)"></Todo>
+            <!--被注释的是正确的方式，但是不规范的方式也没有报错。。。  -->
+            <!-- <li is="Todo" v-for="(item,index) in things" :key="item.id" :title="item.title" @del="dele(index)"></li> -->
+             <Todo v-for="(item,index) in things" :key="item.id" :title="item.title" @del="dele(index)"></Todo> 
           </ul>
         </div>
       </div>
