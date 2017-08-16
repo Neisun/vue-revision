@@ -239,6 +239,66 @@
       </div>
       事件监听结束
     </div>
+    <div :style="style">
+      <h2>表单控件绑定</h2>
+      <div :style="style">
+        <h3>文本</h3>
+        <input type="text" v-model="inp" placeholder="输入内容">
+        <p>输入的内容是：{{inp}}</p>
+      </div>
+      <div :style="style">
+        <h3>多行文本</h3>
+        <textarea name="" id="" cols="30" rows="10" v-model="textarea"></textarea>
+        <p>{{textarea}}</p>
+      </div>
+      <div :style="style">
+        <h3>复选框-单个选项，绑定一个布尔值</h3>
+        <input type="checkbox" v-model="checked">{{checked}}
+      </div>
+      <div :style="style">
+        <h3>复选框-多个选项，绑定一个数组</h3>
+        <input type="checkbox" v-model="checkedNames" value="Jack">Jack
+        <input type="checkbox" v-model="checkedNames" value="Rose">Rose
+        <input type="checkbox" v-model="checkedNames" value="Tom">Tom
+        <span>checkedNames是:{{checkedNames}}</span>
+      </div>
+      <div :style="style">
+        <h3>单选按钮</h3>
+        <input type="radio" v-model="radio" value="one">one
+        <input type="radio" v-model="radio" value="two">two
+        <span>选择的是：{{radio}}</span>
+      </div>
+      <div :style="style">
+        <h3>单选框</h3>
+        <select name="" id="" v-model="select">
+          <option disabled value="">尽情挑选</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+        </select>
+        <span>选择的是：{{select}}</span>
+      </div>
+      <div :style="style">
+        <h3>多选框</h3>
+        <select name="" id="" v-model="multiple" multiple>
+          <option disabled value="">尽情挑选</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+        </select>
+        <span>选择的是：{{multiple}}</span>
+      </div>
+      <div>
+        <h3>修饰符,lazy,number,trim</h3>
+        <p>lazy表示触发事件的时机改了，v-model是oninput事件，而lazy是onchange事件</p>
+        <p>number，将输入转化为number处理</p>
+        <p>trim，去除输入的前后空白</p>
+      </div>
+      表单控件绑定 结束
+    </div>
+    <div :style="style">
+      <h2>组件部分</h2>
+    </div>
   </div>
 </template>
 
@@ -370,7 +430,16 @@ export default {
         "cute",
         "pretty"
       ],
-      number: [0, 1, 2, 3, 4, 5]
+      number: [0, 1, 2, 3, 4, 5],
+      // 表单控件绑定部分数据
+      inp:"",
+      textarea:"",
+      // 直接绑定布尔值
+      checked:false,
+      checkedNames:[],
+      radio:"",
+      select:"",
+      multiple:""
     }
   },
   components: {
@@ -504,6 +573,7 @@ export default {
         return item % 2 !== 0;
       })
     },
+    // 事件监听器示例
     hello:function (event) {
       alert("hello!");
       console.log(event)
