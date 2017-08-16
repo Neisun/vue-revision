@@ -154,7 +154,7 @@
       <div :style="{'border':'1px solid #ccc'}">
         <h3>v-for在对象中的使用:v-for="(value,key,index) in obj",注意顺序,value,key,index</h3>
         <ul>
-          <li v-for="(value,key,index) in obj">
+          <li v-for="(value,key,index) in obj" :key="index">
             {{value}}-{{key}}--{{index}}
           </li>
         </ul>
