@@ -227,6 +227,17 @@
       </div>
       v-for 部分结束
     </div>
+    <div :style="style">
+      <h2>事件监听器</h2>
+      <div :style="style">
+        <h3>基本用法</h3>
+        <button @click="hello">Hello!</button>
+      </div>
+      <div>
+        <h3>按键修饰符</h3>
+        <button @click.ctrl="doSomeThing">鼠标click+ctrl联用</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -491,6 +502,13 @@ export default {
       return number.filter((item) => {
         return item % 2 !== 0;
       })
+    },
+    hello:function (event) {
+      alert("hello!");
+      console.log(event)
+    },
+    doSomeThing:function () {
+      alert("触发了！")
     }
   },
   // 这里，你就没有必要耍帅装酷，用可读性极差的箭头函数，因为watch它设定好了，绑定上下文的作用域
