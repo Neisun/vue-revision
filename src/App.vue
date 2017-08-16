@@ -15,65 +15,70 @@
     <router-view :style="{color:'orange'}"></router-view>
     <Btn></Btn>
     <button @click="commit">点我减1</button>
-    <div :style="{'border':'1px solid #ccc'}">
+    <div :style="style">
       {{myNum}}
     </div>
-    <div :style="{'border':'1px solid #ccc'}">
+    <div :style="style">
       <h2>渲染出来的数据</h2>
       {{msg}}
     </div>
-    <ul :style="{'border':'1px solid #ccc'}">
+    <ul :style="style">
       <h2>遍历来的数据</h2>
       <li v-for="(item,index) in lists" :key="item.id" :class="'list'+item.id">
         {{item.name}}
       </li>
     </ul>
-    <div :style="{'border':'1px solid #ccc'}">
+    <div :style="style">
       <h2>条件循环</h2>
       <p v-if="seen">can you see me?</p>
     </div>
-    <div :style="{'border':'1px solid #ccc'}">
+    <div :style="style">
       <h2>事件监听v-on</h2>
       <p>{{msg}}</p>
       <button @click="reverse">点击翻转</button>
     </div>
-    <div :style="{'border':'1px solid #ccc'}">
+    <div :style="style">
       <h2>数据绑定</h2>
       <input type="text" v-model="inp">
       <p>{{inp}}</p>
     </div>
-    <div :style="{'border':'1px solid #ccc'}">
+    <div :style="style">
       <h2>父子组件数据传递，父传子</h2>
       <!--容易产生误会的地方，在这里做一个记录  -->
       <!--首先，在组件中我绑定是childData，现在我想从父组件 中拿来数据进行对子组件的数据进行渲染，首先我要知道，我想渲染的是什么数据。我想渲染的是lists这个数组中的每一项的name  -->
       <!--首先，循环遍历这个数组，然后把每一项的item绑定给childData，还需要记住的是，给每一个组件绑定一个key  -->
       <Child v-for="item in lists" :childData="item" :key="item.id"></Child>
+      父子组件传递数据结束
     </div>
-    <div :style="{'border':'1px solid #ccc'}">
-      <h2>原始html</h2>
+    <div :style="style">
+      <h2>原始html，定义一个含有标签部分的字符串。然后v-html渲染</h2>
       <div v-html="rawHTML"></div>
+      v-html部分结束
     </div>
-    <div :style="{'border':'1px solid #ccc'}">
+    <div :style="style">
       <a :href="url" target="_blank">链接</a>
       <input type="text" v-model="url">
     </div>
-    <div :style="{'border':'1px solid #ccc'}">
+    <div :style="style">
       <h2>按键修饰符</h2>
       <button @keyup.enter="submit" @click="submit">提交</button>
+      按键修饰器部分结束
     </div>
-    <div :style="{'border':'1px solid #ccc'}">
+    <div :style="style">
       <h2>过滤器</h2>
       <p>{{value | capitalize |filterA}}</p>
+      过滤器部分结束
     </div>
-    <div :style="{'border':'1px solid #ccc'}">
+    <div :style="style">
       <h2>计算属性</h2>
       <ul>
         <li>姓：{{firstName}}</li>
         <li>名字：{{lastName}}</li>
         <li>姓名：{{fullName}}</li>
       </ul>
+      计算属性部分 结束
     </div>
-    <div :style="{'border':'1px solid #ccc'}">
+    <div :style="style">
       <h2>watch的一个简单的案例</h2>
       <p>
         写一个 yes/no 的问题：
@@ -81,14 +86,16 @@
       </p>
       <p style="height:20px;">{{answer}}</p>
       <img :src="imgUrl" alt="">
+      watch部分 结束
     </div>
-    <div :style="{'border':'1px solid #ccc'}">
+    <div :style="style">
       <h2>引入外部js测试</h2>
       <button type="button" @click="test">测试</button>
+      引入外部js测试 结束
     </div>
-    <div :style="{'border':'1px solid #ccc'}">
+    <div :style="style">
       <h2>class与style的绑定</h2>
-      <div :style="{'border':'1px solid #ccc'}">
+      <div :style="style">
         <h3>一、class的绑定，:class=""</h3>
         <h4>第一种：直接绑定类名:class="{'class1':true/false,'class2':true/false}",true/false可以用变量替代</h4>
         <div class="div" :class="{'ok':flag,'error':!flag}"></div>
@@ -105,7 +112,7 @@
         <div :class="[{'ok':flag},classC]"></div>
         <h5>上边的几种方式需要灵活运用，没有什么是死的。</h5>
       </div>
-      <div :style="{'border':'1px solid #ccc'}">
+      <div :style="style">
         <h3>二、style的绑定:style=".."</h3>
         <h4>第一种，直接绑定属性和属性值,:style="{'attr1':'value1','attr2','value2'}"</h4>
         <div :style="{'width':'200px','height':'200px','border':'1px solid #ccc','margin-left':marginLeft+'px'}"></div>
@@ -120,8 +127,9 @@
         <h4>第三种：数组的方式:style="[styleObj1,styleObj2]",在数组中直接书写定义好的对象</h4>
         <div :style="[styleObj3,styleObj4]"></div>
       </div>
+      class与style绑定部分结束
     </div>
-    <div :style="{'border':'1px solid #ccc'}">
+    <div :style="style">
       <h2>条件判断：v-if,v-else,v-else-if,基本用法不演示。为了作用于一组标签，我们一般把这些标签放在template中</h2>
       <div>
         <template v-if="bover">
@@ -148,10 +156,11 @@
         </template>
         <button type="button" @click="toggleType">toggle</button>
       </div>
+      v-if 部分结束
     </div>
-    <div :style="{'border':'1px solid #ccc'}">
+    <div :style="style">
       <h2>关于v-for，循环遍历，基础语法不多做解释</h2>
-      <div :style="{'border':'1px solid #ccc'}">
+      <div :style="style">
         <h3>v-for在对象中的使用:v-for="(value,key,index) in obj",注意顺序,value,key,index</h3>
         <ul>
           <li v-for="(value,key,index) in obj" :key="index">
@@ -159,8 +168,8 @@
           </li>
         </ul>
       </div>
-      <div :style="{'border':'1px solid #ccc'}">
-        <h3>与template联用</h3>
+      <div :style="style">
+        <h3>与template联用，将标签包裹在template中，把template当做容器</h3>
         <template v-for="(n,index) in 3">
           <button :key="index">{{n}}--按钮</button>
         </template>
@@ -174,7 +183,7 @@
           <ul>
             <!--被注释的是正确的方式，但是不规范的方式也没有报错。。。  -->
             <!-- <li is="Todo" v-for="(item,index) in things" :key="item.id" :title="item.title" @del="dele(index)"></li> -->
-             <Todo v-for="(item,index) in things" :key="item.id" :title="item.title" @del="dele(index)"></Todo> 
+            <Todo v-for="(item,index) in things" :key="item.id" :title="item.title" @del="dele(index)"></Todo>
           </ul>
         </div>
       </div>
@@ -185,13 +194,38 @@
         </ul>
       </div>
       <div :style="style">
-        <h3>遍历的数组数据更新问题，其他的数组操作都会触发数据更新，唯独slice,concat,filter不会，处理这种情况需要返回一个数组然后替换原数组</h3>
+        <h3>遍历的数组数据更新问题，其他的数组操作都会触发数据更新，唯独slice,concat,filter不会，处理这种情况需要返回一个数组然后替换原数组，concat和slice用法雷同，都是数组的替代。</h3>
         <!--先看一下，filter  -->
         <ul>
           <li v-for="(item,index) in testLists" :key="index">{{item}}</li>
         </ul>
         <button @click="changeArray">用filter变魔术</button>
       </div>
+      <div :style="style">
+        <h3>改变数组下标，看看会不会更新数据。经过测试确实不能改变数据</h3>
+        <ul>
+          <li v-for="(item,index) in anotherLists" :key="index">{{item}}</li>
+        </ul>
+        <button @click="changeThings">使用数组下标改变数据，测试能否将hello改为123</button>
+      </div>
+      <div :style="style">
+        <h3>修改数组长度，直接vm.array.length = newLength,不生效。下边有两个栗子。第一个是直接修改数组长度，第二是使用splice方法。</h3>
+        <ul>
+          <li v-for="(item,index) in arr" :key="index">{{item}}</li>
+        </ul>
+        <button @click="changeLength_1">直接改变数组长度</button>
+        <button @click="changeLength_2">splice方式</button>
+      </div>
+      <div :style="style">
+        <h3>显示过滤结果/排序结果,要么是计算属性，要么是直接在遍历时候调用方法</h3>
+        <ul>
+          <li v-for="(n,index) in evenNum" :key="index">{{n}}</li>
+        </ul>
+        <ul>
+          <li v-for="(m,index) in even(number)" :key="index">{{m}}</li>
+        </ul>
+      </div>
+      v-for 部分结束
     </div>
   </div>
 </template>
@@ -215,8 +249,10 @@ export default {
   name: 'app',
   data: function () {
     return {
-      style:{
-        "border":"1px solid #ccc"
+      style: {
+        "border": "1px solid #ccc",
+        "margin": "10px 0 10px 0",
+        "padding": "5px"
       },
       msg: "渲染出来的数据",
       lists: [{
@@ -281,36 +317,48 @@ export default {
         age: 40,
         wife: "维多利亚"
       },
-      thing:"",
-      things:[
+      thing: "",
+      things: [
         {
-          title:"写博客",
-          id:1,
-          isCompleted:true
+          title: "写博客",
+          id: 1,
+          isCompleted: true
         },
         {
-          title:"改代码",
-          id:2,
-          isCompleted:false
+          title: "改代码",
+          id: 2,
+          isCompleted: false
         },
         {
-          title:"打台球",
-          id:3,
-          isCompleted:false
+          title: "打台球",
+          id: 3,
+          isCompleted: false
         },
         {
-          title:"睡觉",
-          id:4,
-          isCompleted:true
+          title: "睡觉",
+          id: 4,
+          isCompleted: true
         },
       ],
-      thingsId:5,
-      testLists:[
+      thingsId: 5,
+      testLists: [
         "Football",
         "Basketball",
         "Netball",
         "Tableball"
-      ]
+      ],
+      anotherLists: [
+        "hello",
+        "world",
+        "hhhh"
+      ],
+      arr: [
+        "nice",
+        "beautiful",
+        "cute",
+        "pretty"
+      ],
+      number: [0, 1, 2, 3, 4, 5]
     }
   },
   components: {
@@ -352,6 +400,11 @@ export default {
       return {
         "border": "1px solid #ccc"
       }
+    },
+    evenNum: function () {
+      return this.number.filter((item) => {
+        return item % 2 === 0;
+      })
     }
   },
   methods: {
@@ -402,24 +455,41 @@ export default {
         this.loginType = "username"
       }
     },
-    addNewThing:function () {
+    addNewThing: function () {
       this.thingsId++;
       this.things.push({
-        title:this.thing,
-        id:this.thingsId,
-        isCompleted:true
+        title: this.thing,
+        id: this.thingsId,
+        isCompleted: true
       })
       this.thing = ""
     },
-    dele:function (index) {
-      this.things.splice(index,1)
+    dele: function (index) {
+      this.things.splice(index, 1)
     },
     // 使用数组filter方法，不能更新数组，而是返回一个新数组，那么需要心数组赋值给原数组
-    changeArray:function () {
-      this.testLists =  this.testLists.filter(function (item) {
+    changeArray: function () {
+      this.testLists = this.testLists.filter(function (item) {
         // console.log(item)
         // console.log(item.match(/Football/g))
-        return item.match(/Football/g)
+        return item.match(/Football/g);
+      })
+    },
+    // 直接改变下标的方式，确实不能触发数据更新
+    changeThings: function () {
+      this.anotherLists[0] = "123";
+      console.log(this.anotherLists)
+    },
+    // 直接改变数组length
+    changeLength_1: function () {
+      this.arr.length = 3;
+    },
+    changeLength_2: function () {
+      this.arr.splice(3);
+    },
+    even: function (number) {
+      return number.filter((item) => {
+        return item % 2 !== 0;
       })
     }
   },
