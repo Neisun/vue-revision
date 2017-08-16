@@ -237,6 +237,7 @@
         <h3>按键修饰符</h3>
         <button @click.ctrl="doSomeThing">鼠标click+ctrl联用</button>
       </div>
+      事件监听结束
     </div>
   </div>
 </template>
