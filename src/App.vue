@@ -178,6 +178,20 @@
           </ul>
         </div>
       </div>
+      <div :style="style">
+        <h3>带有v-if的v-for，意味着v-if将会在每次遍历的时候触发</h3>
+        <ul>
+          <li v-for="item in things" :key="item.id" v-if="item.isCompleted">{{item.title}}</li>
+        </ul>
+      </div>
+      <div :style="style">
+        <h3>遍历的数组数据更新问题，其他的数组操作都会触发数据更新，唯独slice,concat,filter不会，处理这种情况需要返回一个数组然后替换原数组</h3>
+        <!--先看一下，filter  -->
+        <ul>
+          <li v-for="(item,index) in testLists" :key="index">{{item}}</li>
+        </ul>
+        <button @click="changeArray">用filter变魔术</button>
+      </div>
     </div>
   </div>
 </template>
@@ -271,22 +285,32 @@ export default {
       things:[
         {
           title:"写博客",
-          id:1
+          id:1,
+          isCompleted:true
         },
         {
           title:"改代码",
-          id:2
+          id:2,
+          isCompleted:false
         },
         {
           title:"打台球",
-          id:3
+          id:3,
+          isCompleted:false
         },
         {
           title:"睡觉",
-          id:4
+          id:4,
+          isCompleted:true
         },
       ],
       thingsId:5,
+      testLists:[
+        "Football",
+        "Basketball",
+        "Netball",
+        "Tableball"
+      ]
     }
   },
   components: {
@@ -382,12 +406,21 @@ export default {
       this.thingsId++;
       this.things.push({
         title:this.thing,
-        id:this.thingsId
+        id:this.thingsId,
+        isCompleted:true
       })
       this.thing = ""
     },
     dele:function (index) {
       this.things.splice(index,1)
+    },
+    // 使用数组filter方法，不能更新数组，而是返回一个新数组，那么需要心数组赋值给原数组
+    changeArray:function () {
+      this.testLists =  this.testLists.filter(function (item) {
+        // console.log(item)
+        // console.log(item.match(/Football/g))
+        return item.match(/Football/g)
+      })
     }
   },
   // 这里，你就没有必要耍帅装酷，用可读性极差的箭头函数，因为watch它设定好了，绑定上下文的作用域
