@@ -297,7 +297,29 @@
       表单控件绑定 结束
     </div>
     <div :style="style">
-      <h2>组件部分</h2>
+      <h2>组件部分，基础语法不赘述。看看最精髓的地方，父子组件通信。</h2>
+      <div :style="style">
+        <p>父子组件的通信，用官网的话说就是，props down，events up</p>
+        <p>写一个例子，子组件是一个按钮，点击+1，父组件显示总和</p>
+        <p>{{total}}</p>
+        <AddBtn @add="increase"></AddBtn>
+        <AddBtn @add="increase"></AddBtn>
+      </div>
+      <div :style="style">
+        <h3>v-model的组件，因为直接在组件中去定义v-model，并不会触发双向的数据绑定，所以在组件中定义的话有两点注意</h3>
+        <p>在组件中接收一个value作为prop</p>
+        <p>并且触发input事件，并传入新的值</p>
+        <Price v-model="price"></Price>
+        <p>{{price}}</p>
+      </div>
+      <div :style="style">
+        <h3>定制组件，什么叫定制组件。</h3>
+        <p>在一个组件中，v-model 默认使用 value 作为 prop，以及默认使用 input 作为监听事件，但是一些输入框类型，例如 checkbox 和 radio，可能会用到 value。在这种情况下，为了避免冲突，就会需要使用组件的 model 选项</p>
+        <MyRadio v-model="foo" value="test1"></MyRadio>
+        <MyRadio v-model="foo" value="test2"></MyRadio>
+        <p>{{foo}}</p>
+        此处存疑，案例不清晰。。。
+      </div>
     </div>
   </div>
 </template>
@@ -317,6 +339,11 @@ import {
 import store from "./store/index"
 import util from "./util/index"
 import Todo from "./components/todo.vue"
+// 父子组件部分 子组件
+import AddBtn from "./components/Button.vue"
+// 组件部分内容 price组件
+import Price from "./components/Price.vue"
+import MyRadio from "./components/MyRadio.vue"
 export default {
   name: 'app',
   data: function () {
@@ -439,13 +466,20 @@ export default {
       checkedNames:[],
       radio:"",
       select:"",
-      multiple:""
+      multiple:[],
+      // 组件部分数据
+      total:0,
+      price:"",
+      foo:""
     }
   },
   components: {
     Btn,
     Child,
-    Todo
+    Todo,
+    AddBtn,
+    Price,
+    MyRadio
   },
   computed: {
     // ...mapGetters([
@@ -580,6 +614,10 @@ export default {
     },
     doSomeThing:function () {
       alert("触发了！")
+    },
+    // 组件部分
+    increase:function () {
+      this.total+=1;
     }
   },
   // 这里，你就没有必要耍帅装酷，用可读性极差的箭头函数，因为watch它设定好了，绑定上下文的作用域
