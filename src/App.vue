@@ -85,8 +85,7 @@
         <input type="text" v-model="question">
       </p>
       <p style="height:20px;">{{answer}}</p>
-      <img :src="imgUrl" alt="">
-      watch部分 结束
+      <img :src="imgUrl" alt=""> watch部分 结束
     </div>
     <div :style="style">
       <h2>引入外部js测试</h2>
@@ -320,6 +319,48 @@
         <p>{{foo}}</p>
         此处存疑，案例不清晰。。。
       </div>
+      <div :style="style">
+        <h3>非父子组件通信，busEvent</h3>
+        <p>定义一个js文件，引入vue,然后创建一个vue实例，然后在组件中引入这个vue实例</p>
+        <pre>
+                import Vue from "vue"
+                export default new Vue();
+              </pre>
+        <BusOne></BusOne>
+        <BusTwo></BusTwo>
+      </div>
+      <div :style="style">
+        <h3>让人糊涂的slot部分，我对这一部分，始终是稀里糊涂，晕晕乎乎</h3>
+        <p>先说一下这个slot有什么用。其实就是在父组件中引入一个子组件。然后在子组件中预留出一些位置（标签），在父组件中填充。</p>
+      </div>
+      <div :style="style">
+        <h3>单个slot,就是只有一个slot，父组件引入了子组件，要是什么都不写，这个就不显示。如果写了，就会在对应的slot位置插入</h3>
+        <p>写一个子组件，预留出一些内容放在父组件中填充，看例子吧</p>
+        <Layout>
+          我就是main的内容，我是在父组件中定义的
+        </Layout>
+      </div>
+      <div :style="style">
+        <h3>具名slot，也就是有多个slot</h3>
+        <Layout2>
+          <p slot="header">我是头部</p>
+          <p slot="main">我是main</p>
+          <p slot="footer">我是footer</p>
+        </Layout2>
+      </div>
+      <div :style="style">
+        <h3>作用域插槽，竟不知道怎么用语言去形容，主要是不知道这个东西的使用场景</h3>
+        <div class="parent">
+          <ChildUl :items="items">
+            <template slot="child-ul" scope="props">
+              <li>{{props.title}}</li>
+            </template>
+          </ChildUl>
+        </div>
+      </div>
+      <div :style="style">
+        <h3>动态组件，使用保留的component标签绑定is来实现</h3>
+      </div>
     </div>
   </div>
 </template>
@@ -344,6 +385,13 @@ import AddBtn from "./components/Button.vue"
 // 组件部分内容 price组件
 import Price from "./components/Price.vue"
 import MyRadio from "./components/MyRadio.vue"
+// busEvent
+import BusOne from "./components/BusOne.vue"
+import BusTwo from "./components/BusTwo.vue"
+// slot部分
+import Layout from "./components/layout"
+import Layout2 from "./components/layout2"
+import ChildUl from "./components/child-ul"
 export default {
   name: 'app',
   data: function () {
@@ -459,18 +507,41 @@ export default {
       ],
       number: [0, 1, 2, 3, 4, 5],
       // 表单控件绑定部分数据
-      inp:"",
-      textarea:"",
+      inp: "",
+      textarea: "",
       // 直接绑定布尔值
-      checked:false,
-      checkedNames:[],
-      radio:"",
-      select:"",
-      multiple:[],
+      checked: false,
+      checkedNames: [],
+      radio: "",
+      select: "",
+      multiple: [],
       // 组件部分数据
-      total:0,
-      price:"",
-      foo:""
+      total: 0,
+      price: "",
+      foo: "",
+      // 作用域插槽
+      items: [
+        {
+          text: "苹果",
+          id: 1,
+          title: "aa"
+        },
+        {
+          text: "香蕉",
+          id: 2,
+          title: "bb"
+        },
+        {
+          text: "鸭梨",
+          id: 3,
+          title: "cc"
+        },
+        {
+          text: "西瓜",
+          id: 4,
+          title: "dd"
+        }
+      ]
     }
   },
   components: {
@@ -479,7 +550,12 @@ export default {
     Todo,
     AddBtn,
     Price,
-    MyRadio
+    MyRadio,
+    BusOne,
+    BusTwo,
+    Layout,
+    Layout2,
+    ChildUl
   },
   computed: {
     // ...mapGetters([
@@ -608,16 +684,16 @@ export default {
       })
     },
     // 事件监听器示例
-    hello:function (event) {
+    hello: function (event) {
       alert("hello!");
       console.log(event)
     },
-    doSomeThing:function () {
+    doSomeThing: function () {
       alert("触发了！")
     },
     // 组件部分
-    increase:function () {
-      this.total+=1;
+    increase: function () {
+      this.total += 1;
     }
   },
   // 这里，你就没有必要耍帅装酷，用可读性极差的箭头函数，因为watch它设定好了，绑定上下文的作用域
